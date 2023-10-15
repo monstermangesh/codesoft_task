@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Acess</title>
+
+    <style type="text/css">
+
+        
+
+        .videoObject {
+            border: 8px solid #222;
+            background: blanchedalmond;
+            height: 200px;
+            width: 400px; 
+			
+        }
+		.canvas {
+            border: 8px solid #222;
+            background: blue;
+            height: 350px;
+            width: 400px;
+			
+		}
+
+         .btn {
+            height: 50px;
+            width: 500px;
+            background: grey;
+            font-weight: bold;
+            font-size: 30px;
+			text-align: center-left;
+        }
+
+        
+
+    </style>
+
+
+</head>
+
+<body align="center">
+	<h3> TO CAPTURE IMAGE CLICK ON 'CAPTURE' BUTTON </h3>
+	<br>
+    <div class="videoObject">
+    <video id="videoElement" autoplay="true" width="400" height="200" ></video>
+    </div>
+<br>
+    
+    <button id="capture" class="btn">Capture Image</button>
+
+<br>
+	<h3> CAPTURED IMAGE :</h3>
+    <canvas id="image" class="canvas" width="400" height="400"></canvas>
+
+
+
+    <script>
+	var video = document.querySelector("#videoElement");
+    if(navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({
+            video: true
+        }).then(function(stream) {
+            video.srcObject = stream
+           
+		   video.play();
+        }).catch(function(error) {
+            console.log(error);
+        });
+    }
+
+    var image = document.getElementById('image'),
+        context = image.getContext('2d'); 
+
+    document.getElementById('capture').addEventListener('click' , function() {
+           
+        context.drawImage(video ,0,0, image.width , image.height);
+
+    });
+
+
+	
+	
+	
+	</script>
+
+</body>
+</html>
